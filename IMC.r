@@ -1,11 +1,11 @@
-#sélection du Dossier de travail
+#sÃ©lection du Dossier de travail
 setwd("Directory") 
 
-#importation des données
+#importation des donnÃ©es
 data<-read.table("exercice2.csv", header=TRUE, sep=";",
                  na.strings="NA", dec=",")
 
-#Calculer la moyenne et l'écart-type de chacune de ces variables
+#Calculer la moyenne et l'Ã©cart-type de chacune de ces variables
 summary(data$age)
 sd(data$age)
 summary(data$poids)
@@ -13,20 +13,20 @@ sd(data$poids)
 summary(data$taille)
 sd(data$taille)
 
-#Créer les 3 variables (IMC, Obesité, age50plus)
+#CrÃ©er les 3 variables (IMC, ObesitÃ©, age50plus)
 data$imc<-data$poids/(data$taille*data$taille)
 data$obesite[data$imc<30]<-0
 data$obesite[data$imc>=30]<-1
 data$age50plus[data$age>50]<-1
 data$age50plus[data$age<=50]<-0
 
-#Créer le tableau de contingence observé des variables "obvesité" et "age50plus"
+#CrÃ©er le tableau de contingence observÃ© des variables "obvesitÃ©" et "age50plus"
 effectifs<-table(data$age50plus,data$obesite)
 tableau<-matrix(c(77,24,8,1), nrow=2, dimnames=list(c("50moins",
-                                                      "50plus"), c("normal", "obèse")))
+                                                      "50plus"), c("normal", "obÃ¨se")))
 
-#Afficher le tableau des effectifs théoriques
+#Afficher le tableau des effectifs thÃ©oriques
 chisq.test(tableau)$expected
 
-#Les variables "obesite" et "age50plus" sont-elles liées ?
+#Les variables "obesite" et "age50plus" sont-elles liÃ©es ?
 fisher.test(tableau, alternative="two.sided")
